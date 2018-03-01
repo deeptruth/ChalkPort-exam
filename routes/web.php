@@ -1,5 +1,8 @@
 <?php
 
+use App\Events\TestEvent;
+use Illuminate\Support\Facades\App;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,5 +15,23 @@
 */
 
 Route::get('/', function () {
+    return view('welcome');
+});
+
+
+Route::get('/broadcast', function() {
+    event(new TestEvent('Broadcasting in Laravel using Pusher!'));
+
+    return view('welcome');
+});
+
+
+Route::get('/bridge', function() {
+    $pusher = App::make('pusher');
+
+    $pusher->trigger( 'test-channel',
+                      'test-event', 
+                      array('text' => 'Preparing the Pusher Laracon.eu workshop!'));
+
     return view('welcome');
 });
