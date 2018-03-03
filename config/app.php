@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://chalport-test.herokuapp.com'),
 
     /*
     |--------------------------------------------------------------------------
@@ -176,6 +176,13 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        /**
+         * Custom
+         */
+        
+        App\Http\Providers\Site\PageServiceProvider::class,
+        App\Http\Providers\Site\UserServiceProvider::class,
 
     ],
 
