@@ -10,7 +10,7 @@ use App\Repositories\Site\UserRepositoryInterface;
 
 class UserController extends BaseController
 {
-    protected $title = 'List of User';
+    protected $title = 'User';
 
     /**
      * Create a new controller instance.
