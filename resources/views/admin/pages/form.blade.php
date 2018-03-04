@@ -3,7 +3,7 @@
 @push('styles')
 <link rel="stylesheet" href="{{ asset('metronics/plugins/bootstrap-toastr/toastr.min.css') }}">
 
-<link rel="stylesheet" href="{{ asset('metronics/plugins/datatables/custom.css') }}">
+<link rel="stylesheet" href="{{ asset('metronics/plugins/bootstrap-summernote/summernote.css') }}">
 @endpush
 
 @section('content')
@@ -42,13 +42,13 @@
                     <div class="form-group">
                         <label for="description" class="col-md-2 control-label">Description</label> 
                         <div class="col-md-8">
-                            <textarea id="description" type="text" name="description" required="required" class="form-control" autocomplete="disabled">{{ isset($data->description) ? $data->description : '' }}</textarea>
+                            <textarea id="description" name="description" required="required" class="form-control" autocomplete="disabled">{{ isset($data->description) ? $data->description : '' }}</textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="content" class="col-md-2 control-label">Page Content</label> 
                         <div class="col-md-8">
-                            <textarea id="content" type="text" name="content" required="required" class="form-control" autocomplete="disabled">{{ isset($data->content) ? $data->content : '' }}</textarea>
+                            <textarea id="content" name="content" required="required" class="form-control" autocomplete="disabled">{{ isset($data->content) ? $data->content : '' }}</textarea>
                         </div>
                     </div>
                     <div class="form-actions">
@@ -71,6 +71,7 @@
 
 @push('scripts')
 <script src="{{ asset('metronics/plugins/bootstrap-toastr/toastr.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('metronics/plugins/bootstrap-summernote/summernote.min.js') }}" type="text/javascript"></script>
 
 <script type="text/javascript" src="{{ url('js/admin/pages.js') }}"></script>
 @endpush

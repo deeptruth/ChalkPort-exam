@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Site;
 
 use App\Role;
 use App\User;
+use Validator;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Http\Controller\Base\BaseController;
 use App\Repositories\Site\UserRepositoryInterface;
 
@@ -47,6 +49,12 @@ class UserController extends BaseController
     public function store(Request $request)
     {
 
+        $validate  = Validator::make($request->all(), $this->validationRule($request->get('id')), $this->validationMessage());
+
+        if ($validate->fails()) {
+            return $validate->errors()->first();
+        }
+
         if ($request->get('id')) {
             $user = $this->getRepository()->find($request->get('id'));
 
@@ -64,6 +72,34 @@ class UserController extends BaseController
         $user->save();
 
         return $user;
+    }
+
+    public function validationRule($id = null)
+    {
+        $email_unique = Rule::unique('users')->where(function ($query) {
+                            return $query->where('deleted_at', null);
+                        });
+
+        if($id){
+            $email_unique = $email_unique->ignore($id);
+        }
+        return [
+            'email' =>   [
+                            'email',
+                            $email_unique,
+                            'required'
+                        ],
+            'name' =>   'required',
+            'role_id' =>   'required',
+            'password' => 'min:8'
+        ];
+    }
+
+    public function validationMessage()
+    {
+        return [
+            'role_id.required' => 'The role field is required',
+        ];
     }
 
     public function delete($id)

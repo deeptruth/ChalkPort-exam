@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Site;
 
+use Validator;
 use App\Page;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Http\Controller\Base\BaseController;
 use App\Repositories\Site\PageRepositoryInterface;
 
@@ -60,6 +62,13 @@ class PageController extends BaseController
 
     public function store(Request $request, $id = null)
     {
+
+        $validate  = Validator::make($request->all(), $this->validationRule($id));
+
+        if ($validate->fails()) {
+            return $validate->errors()->first();
+        }
+
         $page = new Page;
         if ($id) {
             $page = $this->getRepository()->find($id);
@@ -71,8 +80,51 @@ class PageController extends BaseController
         return $page;
     }
 
+    public function validationRule($id = null)
+    {
+        $slug_unique = Rule::unique('pages')->where(function ($query) {
+                            return $query->where('deleted_at', null);
+                        });
+
+        if($id){
+            $slug_unique = $slug_unique->ignore($id);
+        }
+        return [
+            'slug' =>   [
+                            'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/',
+                            $slug_unique,
+                            'required'
+                        ],
+            'name' =>   'required',
+            'description' =>   'required',
+        ];
+    }
+
     public function delete(Request $request, $id)
     {
         return (int) $this->getRepository()->delete($id);
+    }
+
+
+    /**
+     * Render dynamic page
+     * 
+     * @param  Request $request [description]
+     * @param  [type]  $slug    [description]
+     * @return [type]           [description]
+     */
+    public function renderDynamicPage(Request $request, $slug)
+    {
+        $page = $this->getRepository()
+                    ->getModel()
+                    ->whereSlug($slug)
+                    ->first();
+
+        if ($page) {
+            return view('site.dynamic-page', [
+                'data'  => $page,
+            ]);   
+        }
+        abort(404);
     }
 }

@@ -28,4 +28,6 @@ Route::group(['namespace' => 'Site', 'middleware' => ['auth','admin']],function(
 	Route::get('users', 'UserController@index');
 	Route::post('users/store', 'UserController@store');
 	Route::post('users/delete/{id}', 'UserController@delete');
+
+	Route::get('{slug}', 'PageController@renderDynamicPage');
 });

@@ -39,6 +39,7 @@
                         <div class="custom-row">
                             <td>
                                 <a class="btn btn-sm blue" action="Edit" href="{{ url('pages/edit/'.$page->id) }}"> <i class="fa fa-edit"></i> Edit</a>
+                                <a class="btn btn-sm green page-delete" href="{{ url($page->slug) }}" target="_blank" class="btn-no"> <i class="fa fa-trash"></i> View</a>
                                 <a class="btn btn-sm red page-delete" data-id="{{ $page->id }}" href="javascript:void(0);" class="btn-no"> <i class="fa fa-trash"></i> Delete</a>
                             </td>
                             <td>

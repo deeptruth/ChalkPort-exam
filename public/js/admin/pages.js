@@ -7,6 +7,7 @@ $(function(){
 
 		init : function(){
 			this.initializeSubmit();
+			this.initializeSummernote();
 			this.initializeDeletePage();
 		},
 
@@ -42,6 +43,10 @@ $(function(){
 								window.location = $('#site-url').val()+'/pages/edit/'+data.id
 							}, 1000);
 						}
+		            },
+		            error		: function(data){
+		            	console.log(data)
+		            	toastr['error'](data.responseText);
 		            }
 		        })
 
@@ -76,6 +81,10 @@ $(function(){
 					}
 				});
 			});
+		},
+
+		initializeSummernote : function(){
+			$('#content').summernote({height: 300});
 		}
 	}
 })

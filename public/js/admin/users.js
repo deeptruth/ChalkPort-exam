@@ -83,6 +83,10 @@ $(function(){
 						setTimeout(function(){
 							window.location.reload(true);
 						}, 1000)
+		            },
+		            error		: function(data){
+		            	console.log(data)
+		            	toastr['error'](data.responseText);
 		            }
 		        });
 				event.preventDefault();
