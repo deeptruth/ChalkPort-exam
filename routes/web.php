@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::group(['namespace' => 'Site', 'middleware' => ['auth','admin']],function(){
+Route::group(['namespace' => 'Admin', 'middleware' => ['auth','admin']],function(){
 	
 	Route::get('pages', 'PageController@index');
 	Route::get('pages/create', 'PageController@create');
@@ -29,5 +29,19 @@ Route::group(['namespace' => 'Site', 'middleware' => ['auth','admin']],function(
 	Route::post('users/store', 'UserController@store');
 	Route::post('users/delete/{id}', 'UserController@delete');
 
+});
+
+/**
+ * Site Namespace
+ */
+Route::group(['namespace' => 'Site'],function(){
+
 	Route::get('{slug}', 'PageController@renderDynamicPage');
+
+	Route::group(['middleware' => ['auth']],function(){
+
+		Route::post('store-comment/{page_id}', 'PageController@storeComment');
+		Route::post('delete-comment/{id}', 'PageController@deleteComment');
+	});
+
 });

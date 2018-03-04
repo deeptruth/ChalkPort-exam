@@ -11,6 +11,11 @@ class Page extends Model
     use SoftDeletes;
 
     protected $fillable = [
-    	'name', 'description', 'slug', 'content'
+    	'name', 'title', 'description', 'slug', 'content'
     ];
+
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
 }

@@ -3,116 +3,30 @@
 namespace App\Http\Controllers\Site;
 
 use Validator;
-use App\Page;
+use App\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controller\Base\BaseController;
 use App\Repositories\Site\PageRepositoryInterface;
+use App\Repositories\Site\CommentRepositoryInterface;
 
 class PageController extends BaseController
 {
-    protected $title = 'Pages';
+
+    protected $commentRepository;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(PageRepositoryInterface $pageRepository)
+    public function __construct(PageRepositoryInterface $pageRepository, CommentRepositoryInterface $commentRepository)
     {
         $this->setRepository($pageRepository);
+
+        $this->commentRepository = $commentRepository;
     }
 
-    /**
-     * Show the pages.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-
-        $pages = $this->getRepository()->getModel()->paginate(10);
-
-        return view('admin.pages.index', [
-            'title' => $this->title,
-            'pages' => $pages
-        ]);
-    }
-
-    public function create()
-    {
-        return view('admin.pages.form', [
-            'url' => url('pages/store'),
-            'title' => $this->title,
-            'type' => 1
-        ]);   
-    }
-
-    public function edit(Request $request, $id)
-    {
-        $page = $this->getRepository()->find($id);
-
-         return view('admin.pages.form', [
-            'url'   => url('pages/store/'.$id),
-            'title' => $this->title,
-            'data'  => $page,
-            'type' => 2
-        ]);   
-    }
-
-    public function store(Request $request, $id = null)
-    {
-
-        $validate  = Validator::make($request->all(), $this->validationRule($id));
-
-        if ($validate->fails()) {
-            return $validate->errors()->first();
-        }
-
-        $page = new Page;
-        if ($id) {
-            $page = $this->getRepository()->find($id);
-        }
-
-        $page->fill($request->toArray());
-        $page->save();
-
-        return $page;
-    }
-
-    public function validationRule($id = null)
-    {
-        $slug_unique = Rule::unique('pages')->where(function ($query) {
-                            return $query->where('deleted_at', null);
-                        });
-
-        if($id){
-            $slug_unique = $slug_unique->ignore($id);
-        }
-        return [
-            'slug' =>   [
-                            'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/',
-                            $slug_unique,
-                            'required'
-                        ],
-            'name' =>   'required',
-            'description' =>   'required',
-        ];
-    }
-
-    public function delete(Request $request, $id)
-    {
-        return (int) $this->getRepository()->delete($id);
-    }
-
-
-    /**
-     * Render dynamic page
-     * 
-     * @param  Request $request [description]
-     * @param  [type]  $slug    [description]
-     * @return [type]           [description]
-     */
     public function renderDynamicPage(Request $request, $slug)
     {
         $page = $this->getRepository()
@@ -123,8 +37,45 @@ class PageController extends BaseController
         if ($page) {
             return view('site.dynamic-page', [
                 'data'  => $page,
+                'comments' => $page->comments
             ]);   
         }
         abort(404);
+    }
+
+    public function storeComment(Request $request, $page_id)
+    {
+        $comment = new Comment();
+        if($request->get('id')){
+            $comment = $this->commentRepository->getModel()->find($request->get('id'));
+        }
+
+        $comment->fill($request->toArray());
+        $comment->user_id = $request->user()->id;
+        $comment->page_id = $page_id;
+        $comment->save();
+
+        $new_comment = $this->commentRepository
+                    ->getModel()
+                    ->with('user')
+                    ->find($comment->id);
+        $new_comment->time = comment_time($new_comment->created_at);
+        // $comment->id;
+        return $new_comment;
+    }
+
+    public function deleteComment(Request $request, $id)
+    {
+        $comment = $this->commentRepository
+                    ->getModel()
+                    ->find($id);
+
+        // allow to delete if author or admin
+        if($comment->user_id == $request->user()->id || $request->user()->role_id == 1){
+            return (int) $comment
+                    ->delete();
+        }
+
+        return response(['error' => 500, 'message' => 'Errors: You are not allowed to delete this comment'], 500)->header('Content-Type', 'application/json');
     }
 }

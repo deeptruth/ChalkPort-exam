@@ -20,9 +20,10 @@ $(function(){
 				var formData = {
 		            '_token'	: $('input[name="_token"]').val(),
 		            'name'      : $('input[name="name"]').val(),
+		            'title'      : $('input[name="title"]').val(),
 		            'slug'     : $('input[name="slug"]').val(),
 		            'description'     : $('textarea[name="description"]').val(),
-		            'content'     : $('textarea[name="content"]').val(),
+		            'content'     : $('textarea[name="content"]').code(),
 		        };
 
 		        if($('#change-password').prop('checked')){
@@ -48,7 +49,7 @@ $(function(){
 		            	console.log(data)
 		            	toastr['error'](data.responseText);
 		            }
-		        })
+		        });
 
 				e.preventDefault();
 
@@ -84,7 +85,7 @@ $(function(){
 		},
 
 		initializeSummernote : function(){
-			$('#content').summernote({height: 300});
+			$('#content').summernote({height: 500});
 		}
 	}
 })

@@ -34,6 +34,12 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="title" class="col-md-2 control-label">Title</label> 
+                        <div class="col-md-8">
+                            <input id="title" type="text" name="title" value="{{ isset($data->title) ? $data->title : '' }}" required="required" autocomplete="disabled" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="slug" class="col-md-2 control-label">Slug</label> 
                         <div class="col-md-8">
                             <input id="slug" type="text" name="slug" value="{{ isset($data->slug) ? $data->slug : '' }}" required="required" class="form-control" autocomplete="disabled">
@@ -47,7 +53,8 @@
                     </div>
                     <div class="form-group">
                         <label for="content" class="col-md-2 control-label">Page Content</label> 
-                        <div class="col-md-8">
+                        <br />
+                        <div class="col-md-12" style="margin-top: 10px">
                             <textarea id="content" name="content" required="required" class="form-control" autocomplete="disabled">{{ isset($data->content) ? $data->content : '' }}</textarea>
                         </div>
                     </div>

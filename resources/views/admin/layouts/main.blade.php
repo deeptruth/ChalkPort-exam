@@ -88,7 +88,6 @@
     <![endif]-->
     <input type="text" class="hidden" id="site-url" value="{{ url('') }}">
     {{ csrf_field() }}
-    @stack('event_registration_script')
     <script src="{{ asset('metronics/plugins/jquery.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('metronics/plugins/jquery-migrate.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('metronics/plugins/bootbox/bootbox.min.js') }}" type="text/javascript"></script>

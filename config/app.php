@@ -182,6 +182,7 @@ return [
          */
         
         App\Http\Providers\Site\PageServiceProvider::class,
+        App\Http\Providers\Site\CommentServiceProvider::class,
         App\Http\Providers\Site\UserServiceProvider::class,
 
     ],
