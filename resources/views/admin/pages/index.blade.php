@@ -32,6 +32,7 @@
                             <td>Name</td>
                             <td>Description</td>
                             <td>Slug</td>
+                            <td>Comments</td>
                         </tr>
                     </thead>
                     @foreach($pages as $page)
@@ -55,6 +56,11 @@
                             <td>
                                 <div class="text-elipsis">
                                     {{ $page->slug }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="text-elipsis">
+                                    {{ count($page->comments) }}
                                 </div>
                             </td>
                         </div>
