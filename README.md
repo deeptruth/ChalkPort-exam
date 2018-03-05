@@ -6,7 +6,7 @@
 
 ## Features included
 [x] Login and Registration
-[x] Users CRUD
-[x] Page CRUD
-[x] Comment CRUD
-[x] Realtime Comment using pusher
+#### - Users CRUD
+#### - Page CRUD
+#### - Comment CRUD
+#### - Realtime Comment using pusher
