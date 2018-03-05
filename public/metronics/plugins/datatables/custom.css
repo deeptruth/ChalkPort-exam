@@ -1,0 +1,6 @@
+.dataTables_length{
+    margin-top: 10px;
+}
+.table.table-bordered.dataTable{
+    border-bottom-color: #ddd !important;
+}

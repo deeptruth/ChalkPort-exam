@@ -18,6 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+<<<<<<< HEAD
 
 Route::get('/broadcast', function() {
     event(new TestEvent('Broadcasting in Laravel using Pusher!'));
@@ -38,3 +39,35 @@ Route::get('/bridge', function() {
 
 Route::get('notification', 'NotificationController@index');
 Route::post('notification', 'NotificationController@notify');
+=======
+Auth::routes();
+
+Route::group(['namespace' => 'Admin', 'middleware' => ['auth','admin']],function(){
+	
+	Route::get('pages', 'PageController@index');
+	Route::get('pages/create', 'PageController@create');
+	Route::get('pages/edit/{id}', 'PageController@edit');
+	Route::post('pages/store/{id?}', 'PageController@store');
+	Route::post('pages/delete/{id}', 'PageController@delete');
+
+	Route::get('users', 'UserController@index');
+	Route::post('users/store', 'UserController@store');
+	Route::post('users/delete/{id}', 'UserController@delete');
+
+});
+
+/**
+ * Site Namespace
+ */
+Route::group(['namespace' => 'Site'],function(){
+
+	Route::get('{slug}', 'PageController@renderDynamicPage');
+
+	Route::group(['middleware' => ['auth']],function(){
+
+		Route::post('store-comment/{page_id}', 'PageController@storeComment');
+		Route::post('delete-comment/{id}', 'PageController@deleteComment');
+	});
+
+});
+>>>>>>> 07ee1c3af8b81a53e517a94c7c3a98b64cb45c22

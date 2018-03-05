@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', false),
+    'debug' => env('APP_DEBUG', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://chalport-test.herokuapp.com'),
 
     /*
     |--------------------------------------------------------------------------
@@ -104,7 +104,7 @@ return [
     |
     */
 
-    'key' => env('APP_KEY'),
+    'key' => env('APP_KEY', 'base64:cqwFqHfScQUWYZCY6sR6wOqHKukJNFA5HB5XDRD70/w='),
 
     'cipher' => 'AES-256-CBC',
 
@@ -177,6 +177,14 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Pusher\Laravel\PusherServiceProvider::class,
+
+        /**
+         * Custom
+         */
+        
+        App\Http\Providers\Site\PageServiceProvider::class,
+        App\Http\Providers\Site\CommentServiceProvider::class,
+        App\Http\Providers\Site\UserServiceProvider::class,
 
     ],
 

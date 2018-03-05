@@ -1,0 +1,116 @@
+.tiles .tile {
+    display: block;
+    letter-spacing: 0.02em;
+    float: left;
+    height: 75px;
+    width: 86px !important;
+    cursor: pointer;
+    text-decoration: none;
+    color: #ffffff;
+    position: relative;
+    font-weight: 300;
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    line-height: 20px;
+    overflow: hidden;
+    border: 4px solid transparent;
+    margin: 0 10px 10px 0;
+}
+
+.tiles .tile .tile-body {
+    height: 100%;
+    vertical-align: top;
+    /* padding: 10px 10px; */
+    overflow: hidden;
+    position: relative;
+    font-weight: 400;
+    font-size: 0px;
+    color: #000000;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.tiles .tile .tile-body > i{
+	margin-top: 0px;
+    display: block;
+    font-size: 27px;
+    line-height: 30px;
+    text-align: center;
+}
+
+.tiles .tile .tile-object > .name {
+    position: absolute;
+    bottom: 0;
+    /* left: 0; */
+     margin-bottom: 5px; 
+     margin-left: 0px !important; 
+    margin-right: 0px !important;
+    font-weight: 400;
+    font-size: 13px;
+    color: #ffffff;
+    text-align: center;
+    width: 100%;
+    vertical-align: middle;
+}
+
+.wizard_container{
+    display: none;
+}
+
+.wizard_container.active{
+    display: block;
+}
+
+.panel-body.tiles{
+    width: 100%;
+}
+
+#form-container a.field-action{
+    padding: 5px 8px 5px 8px;
+}
+
+#wizard-tile-container .tiles .tile.active{
+    border-color: #aaa !important;
+}
+
+#form-container .subform-container{
+    min-height:200px;
+    width:100%;
+    border:1px solid #e6e6e6;
+    padding: 5px 5px 5px 25px;
+
+}
+
+#form-container .subform-container.active{
+    border: 2px solid #bfbfbf;   
+}
+
+.field-container{
+    border: 1px dotted #FFF;
+    -webkit-transition: width 2s; /* Safari */
+    transition:all 0.3s ease;
+}
+
+.field-container:not(.field-container-subform):hover{
+    /*background-color: #ececec;*/
+    /*border: 1px dotted #a09d9d;*/
+
+}
+
+.field-settings{
+    color: #555;
+    margin-right: 5px;
+}
+
+.field-settings:hover{
+    color: #000;
+}
+
+/*.field-overlay{
+    position: absolute;
+    height: 100%;
+    width: 95%;
+    cursor: pointer;
+    top: 0px;
+    z-index: 10;
+}*/
