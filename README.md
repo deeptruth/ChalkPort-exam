@@ -5,8 +5,8 @@
 #### Password: P@ssw0rd
 
 ## Features included
-#### Login and Registration
-#### Users CRUD
-#### Page CRUD
-#### Comment CRUD
-#### Realtime Comment using pusher
+[x] Login and Registration
+[x] Users CRUD
+[x] Page CRUD
+[x] Comment CRUD
+[x] Realtime Comment using pusher
