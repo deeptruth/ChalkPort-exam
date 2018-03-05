@@ -165,8 +165,8 @@
         Pusher.log = function(msg) {
           console.log(msg);
         };
-        var pusher = new Pusher("{{env("PUSHER_APP_KEY","'2e9bc70bc7164e80059e'")}}",{
-          cluster: "{{env("PUSHER_APP_CLUSTER","'ap1'")}}"
+        var pusher = new Pusher("{{env("PUSHER_APP_KEY","2e9bc70bc7164e80059e")}}",{
+          cluster: "{{env("PUSHER_APP_CLUSTER","ap1")}}"
         });
 
         // for new comment
