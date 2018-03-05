@@ -35,3 +35,6 @@ Route::get('/bridge', function() {
 
     return view('welcome');
 });
+
+Route::get('notification', 'NotificationController@index');
+Route::post('notification', 'NotificationController@notify');
