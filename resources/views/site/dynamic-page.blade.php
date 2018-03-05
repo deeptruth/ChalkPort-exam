@@ -47,7 +47,7 @@
 			<!-- TIMELINE ITEM -->
 			@if($comments)
 				@foreach($comments as $comment)
-				<div class="timeline-item">
+				<div class="timeline-item" id="comment-{{ $comment->id }}">
 					<div class="timeline-badge">
 						<img class="timeline-badge-userpic" src="{{ url('metronics/pages/media/profile/avatar.png') }}">
 					</div>
@@ -159,6 +159,52 @@
     <script src="{{ asset('metronics/pages/scripts/index.js') }}" type="text/javascript"></script>
     <script src="{{ asset('metronics/pages/scripts/tasks.js') }}" type="text/javascript"></script>
     <script src="{{ asset('metronics/plugins/bootstrap-toastr/toastr.min.js') }}" type="text/javascript"></script>
+
+    <script src="https://js.pusher.com/3.0/pusher.min.js"></script>
+    <script>
+        Pusher.log = function(msg) {
+          console.log(msg);
+        };
+        var pusher = new Pusher("{{env("PUSHER_APP_KEY")}}",{
+          cluster: "{{env("PUSHER_APP_CLUSTER")}}"
+        });
+
+        // for new comment
+        var channel = pusher.subscribe('page-{{ $data->id }}');
+        channel.bind('comment-notification', function(data) {
+            var cloned_item = $('.timeline-item-template').clone();
+            alert(123123)
+            cloned_item.find('.timeline-body-title').text(data.user.name);
+            cloned_item.find('.timeline-body-content span').text(data.comment);
+            cloned_item.find('.edit-comment-input').attr('value',data.comment);
+            cloned_item.find('.timeline-body-time span').text(data.time);
+            cloned_item.find('.delete-comment').attr('data-id',data.id);
+
+            if(data.user.id != '{{ isset(Auth::user()->id) ? Auth::user()->id : 0 }}'){
+                cloned_item.find('.timeline-body-head-actions').remove();
+            }
+
+            $('#dynamic-timeline-item-append').append('<div class="timeline-item">'+cloned_item.html()+'</div>');
+        });
+
+        //for edit comment
+        
+        var editChannel = pusher.subscribe('page-{{ $data->id }}-edit-comment');
+        editChannel.bind('edit-comment-notification', function(data) {
+            var cloned_item = $('.timeline-item-template').clone();
+
+
+            var timeline_item = $('#comment-'+data.id)
+            timeline_item.find('')
+            timeline_item.find('.timeline-body-content span').text(data.comment);
+            timeline_item.find('.edit-comment-input').attr('value',data.comment);
+
+            if(data.user.id != '{{ isset(Auth::user()->id) ? Auth::user()->id : 0 }}'){
+
+            }
+        });
+
+    </script>
     <script src="{{ asset('js/site/page.js') }}" type="text/javascript"></script>
 </body>
 </html>

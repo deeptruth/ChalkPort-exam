@@ -18,28 +18,27 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-<<<<<<< HEAD
 
-Route::get('/broadcast', function() {
-    event(new TestEvent('Broadcasting in Laravel using Pusher!'));
+// Route::get('/broadcast', function() {
+//     event(new TestEvent('Broadcasting in Laravel using Pusher!'));
 
-    return view('welcome');
-});
+//     return view('welcome');
+// });
 
 
-Route::get('/bridge', function() {
-    $pusher = App::make('pusher');
+// Route::get('/bridge', function() {
+//     $pusher = App::make('pusher');
 
-    $pusher->trigger( 'test-channel',
-                      'test-event', 
-                      array('text' => 'Preparing the Pusher Laracon.eu workshop!'));
+//     $pusher->trigger( 'test-channel',
+//                       'test-event', 
+//                       array('text' => 'Preparing the Pusher Laracon.eu workshop!'));
 
-    return view('welcome');
-});
+//     return view('welcome');
+// });
 
 Route::get('notification', 'NotificationController@index');
 Route::post('notification', 'NotificationController@notify');
-=======
+
 Auth::routes();
 
 Route::group(['namespace' => 'Admin', 'middleware' => ['auth','admin']],function(){
@@ -70,4 +69,3 @@ Route::group(['namespace' => 'Site'],function(){
 	});
 
 });
->>>>>>> 07ee1c3af8b81a53e517a94c7c3a98b64cb45c22

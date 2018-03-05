@@ -77,6 +77,6 @@
 
 @push('scripts')
 <script src="{{ asset('metronics/plugins/bootstrap-toastr/toastr.min.js') }}" type="text/javascript"></script>
-
+<script src="{{ asset('metronics/plugins/bootstrap-summernote/summernote.min.js') }}" type="text/javascript"></script>
 <script type="text/javascript" src="{{ url('js/admin/pages.js') }}"></script>
 @endpush

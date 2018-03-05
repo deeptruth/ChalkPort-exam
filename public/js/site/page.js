@@ -28,15 +28,15 @@ $(function(){
 			            success		: function(data){
 			            	$('#comment-input').val('');
 
-			            	var cloned_item = $('.timeline-item-template').clone();
+			            	// var cloned_item = $('.timeline-item-template').clone();
 
-			            	cloned_item.find('.timeline-body-title').text(data.user.name);
-			            	cloned_item.find('.timeline-body-content span').text(data.comment);
-			            	cloned_item.find('.edit-comment-input').attr('value',data.comment);
-			            	cloned_item.find('.timeline-body-time span').text(data.time);
-			            	cloned_item.find('.delete-comment').attr('data-id',data.id);
+			            	// cloned_item.find('.timeline-body-title').text(data.user.name);
+			            	// cloned_item.find('.timeline-body-content span').text(data.comment);
+			            	// cloned_item.find('.edit-comment-input').attr('value',data.comment);
+			            	// cloned_item.find('.timeline-body-time span').text(data.time);
+			            	// cloned_item.find('.delete-comment').attr('data-id',data.id);
 
-			            	$('#dynamic-timeline-item-append').append('<div class="timeline-item">'+cloned_item.html()+'</div>');
+			            	// $('#dynamic-timeline-item-append').append('<div class="timeline-item">'+cloned_item.html()+'</div>');
 
 			            	toastr['success']('Comment sucessfully saved!');
 			            },

@@ -6,6 +6,7 @@ use Validator;
 use App\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\App;
 use App\Http\Controller\Base\BaseController;
 use App\Repositories\Site\PageRepositoryInterface;
 use App\Repositories\Site\CommentRepositoryInterface;
@@ -60,7 +61,20 @@ class PageController extends BaseController
                     ->with('user')
                     ->find($comment->id);
         $new_comment->time = comment_time($new_comment->created_at);
-        // $comment->id;
+
+        $pusher = App::make('pusher');
+
+        if(!$request->get('id')){
+            $pusher->trigger( 'page-'.$page_id,
+                              'comment-notification',
+                              $new_comment
+                            );
+        }else{
+            $pusher->trigger( 'page-'.$page_id.'-edit-comment',
+                              'edit-comment-notification',
+                              $new_comment
+                            );
+        }
         return $new_comment;
     }
 

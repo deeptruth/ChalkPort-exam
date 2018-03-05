@@ -25,7 +25,7 @@
                         {{ session()->get('success_message') }}
                     </div>
                 @endif
-                <form method="POST" action="{{ $url }}" class="form-horizontal" id="page-form" type="{{ $type }}">
+                <form method="POST" action="{{ $url }}" class="form-horizontal" id="page-form" type="{{ $type }}" novalidate>
                     <input type="hidden" name="_token" value="{{ csrf_token() }}"> 
                     <div class="form-group">
                         <label for="name" class="col-md-2 control-label">Name</label> 
